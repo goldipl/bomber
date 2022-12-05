@@ -1,5 +1,3 @@
-import "./gamePage.css";
-
 const startPage = () => {
 	app.innerHTML = `
   <section class="homeContainer" id="homeContainer">
