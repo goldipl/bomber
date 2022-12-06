@@ -55,7 +55,7 @@ const gamePage = () => {
 		color: "blue",
 		score: 0,
 		lives: 0,
-		image: "./assets/img/front.png",
+		image: "./assets/img/bomberman.png",
 		x: canvas.width / 2,
 		y: canvas.height / 2,
 	};
