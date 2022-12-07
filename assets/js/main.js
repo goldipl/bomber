@@ -49,16 +49,28 @@ const gamePage = () => {
 	let tile = canvas.width / 15;
 
 	const player1 = {
-		speed: tile,
+		speed: 1,
 		width: tile,
 		height: tile,
 		color: "blue",
 		score: 0,
 		lives: 0,
 		image: "./assets/img/bomberman.png",
-		x: canvas.width / 2,
-		y: canvas.height / 2,
+		x: tile,
+		y: tile,
 	};
+
+	const player1Image = new Image();
+	player1Image.src = player1.image;
+
+	const wall = {
+		width: tile,
+		height: tile,
+		image: "./assets/img/wall.png",
+	};
+
+	const wallImage = new Image();
+	wallImage.src = wall.image;
 
 	const CanvasResize = () => {
 		width = canvas.offsetWidth;
@@ -70,16 +82,13 @@ const gamePage = () => {
 		tile = canvas.width / 15;
 		player1.width = tile;
 		player1.height = tile;
-		player1.y = canvas.height / 2;
-		player1.x = canvas.width / 2;
+		player1.y = tile;
+		player1.x = tile;
 	};
 	CanvasResize();
 	window.addEventListener("resize", CanvasResize);
 
 	const ctx = canvas.getContext("2d");
-
-	const player1Image = new Image();
-	player1Image.src = player1.image;
 
 	const game = {
 		play: false,
@@ -141,16 +150,16 @@ const gamePage = () => {
 		// 	gameOver();
 		// }
 
-		if (keyz.ArrowLeft) {
+		if (keyz.ArrowLeft && player1.x > tile) {
 			player1.x -= player1.speed;
 		}
-		if (keyz.ArrowRight) {
+		if (keyz.ArrowRight && player1.x < tile * 13) {
 			player1.x += player1.speed;
 		}
-		if (keyz.ArrowUp) {
+		if (keyz.ArrowUp && player1.y > tile) {
 			player1.y -= player1.speed;
 		}
-		if (keyz.ArrowDown) {
+		if (keyz.ArrowDown && player1.y < tile * 13) {
 			player1.y += player1.speed;
 		}
 		ctx.drawImage(
@@ -160,6 +169,12 @@ const gamePage = () => {
 			player1.width,
 			player1.height
 		);
+		for (let i = 0; i < 15; i++) {
+			ctx.drawImage(wallImage, 0, tile * i, tile, tile);
+			ctx.drawImage(wallImage, tile * i, 0, tile, tile);
+			ctx.drawImage(wallImage, tile * i, canvas.height - tile, tile, tile);
+			ctx.drawImage(wallImage, canvas.width - tile, tile * i, tile, tile);
+		}
 		if (game.play) {
 			game.req = requestAnimationFrame(draw);
 		}
