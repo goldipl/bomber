@@ -1,10 +1,8 @@
 const startPage = () => {
 	app.innerHTML = `
   <section class="homeContainer" id="homeContainer">
-    <button class="startButton" id="startButton">
-  START
-      </button>
-  
+	<h1 class="game-title">Bomberman</h1>
+    <button class="startButton" id="startButton">START</button>
   </section>
   `;
 
