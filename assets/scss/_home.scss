@@ -32,3 +32,23 @@
 		color: #DD2476;
 	}
 }
+
+.game-title {
+	display: flex;
+	justify-content: center;
+	font-family: 'Rubik Vinyl', cursive;
+	position: absolute;
+	width: 47%;
+	bottom: 60%;
+    transform: translateY(50%);
+	left: 26%;
+	font-weight: 700;
+	font-size: 40px;
+	color: #FFFFFF;
+}
+
+@media (max-width: 800px) {
+	.game-title {
+		bottom: 70%;
+	}
+}
