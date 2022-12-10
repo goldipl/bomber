@@ -14,7 +14,7 @@
 }
 
 canvas {
-	background-color: blue;
+	background-color:  #444444a8;
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: cover;
@@ -26,5 +26,5 @@ canvas {
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	-webkit-tap-highlight-color: transparent;
+	-webkit-tap-highlight-color: rgba(255,255,255,0);
 }
