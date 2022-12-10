@@ -122,15 +122,12 @@ const gamePage = () => {
 		player1.score = 0;
 		player1.lives = 3;
 	}
-
-	//PLAYER STEERING
 	const keyz = {
 		ArrowLeft: false,
 		ArrowRight: false,
 		ArrowUp: false,
 		ArrowDown: false,
 	};
-
 	document.addEventListener("keydown", (e) => {
 		if (e.code in keyz) {
 			keyz[e.code] = true;
@@ -141,24 +138,33 @@ const gamePage = () => {
 			keyz[e.code] = false;
 		}
 	});
+	//PLAYER STEERING
 
 	function draw() {
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		// if (time.textContent.includes("00:00")) {
 		// 	gameOver();
 		// }
-
-		if (keyz.ArrowLeft && player1.x > tile) {
-			player1.x -= player1.speed;
-		}
-		if (keyz.ArrowRight && player1.x < tile * 13) {
-			player1.x += player1.speed;
-		}
-		if (keyz.ArrowUp && player1.y > tile) {
-			player1.y -= player1.speed;
-		}
-		if (keyz.ArrowDown && player1.y < tile * 13) {
-			player1.y += player1.speed;
+		for (let i = 1; i < 6; i++) {
+			if (keyz.ArrowLeft && player1.x > tile) {
+				if (player1.y + tile < 2 * tile) {
+					player1.x -= player1.speed;
+				}
+			}
+			if (keyz.ArrowLeft && player1.x > tile) {
+				if (player1.y > 3 * tile) {
+					player1.x -= player1.speed;
+				}
+			}
+			if (keyz.ArrowRight && player1.x < tile * 13) {
+				player1.x += player1.speed;
+			}
+			if (keyz.ArrowUp && player1.y > tile) {
+				player1.y -= player1.speed;
+			}
+			if (keyz.ArrowDown && player1.y < tile * 13) {
+				player1.y += player1.speed;
+			}
 		}
 		ctx.drawImage(
 			player1Image,
@@ -168,10 +174,18 @@ const gamePage = () => {
 			player1.height
 		);
 		for (let i = 0; i < 15; i++) {
+			//externa lwalls
 			ctx.drawImage(wallImage, 0, tile * i, tile, tile);
 			ctx.drawImage(wallImage, tile * i, 0, tile, tile);
 			ctx.drawImage(wallImage, tile * i, canvas.height - tile, tile, tile);
 			ctx.drawImage(wallImage, canvas.width - tile, tile * i, tile, tile);
+			//Internal walls
+			ctx.drawImage(wallImage, 2 * i * tile, 2 * tile, tile, tile);
+			ctx.drawImage(wallImage, 2 * i * tile, 4 * tile, tile, tile);
+			ctx.drawImage(wallImage, 2 * i * tile, 6 * tile, tile, tile);
+			ctx.drawImage(wallImage, 2 * i * tile, 8 * tile, tile, tile);
+			ctx.drawImage(wallImage, 2 * i * tile, 10 * tile, tile, tile);
+			ctx.drawImage(wallImage, 2 * i * tile, 12 * tile, tile, tile);
 		}
 		if (game.play) {
 			game.req = requestAnimationFrame(draw);
