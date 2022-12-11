@@ -85,14 +85,16 @@
   position: absolute;
   display: inline-flex;
   top: 0;
-  right: 120px;
+  right: 8px;
   font-size: 32px;
   color: #FFFFFF;
 }
-#gameContainer #lives-container #live-counter {
-  margin-left: 8px;
+#gameContainer #lives-container #lives-counter .heart-icon {
   font-size: 32px;
   color: #FFFFFF;
+}
+#gameContainer #lives-container #lives-counter .heart-icon.first {
+  margin-left: 16px;
 }
 
 canvas {

@@ -1,3 +1,5 @@
+import heartImage from './../img/heart.png';
+
 const startPage = () => {
 	app.innerHTML = `
   <section class="homeContainer" id="homeContainer">
@@ -22,7 +24,12 @@ const gamePage = () => {
 				Time: <div id="time-counter">00:00</div>
 			</div>
 			<div id="lives-container">
-				Lives: <div id="lives-counter"></div>	
+				Lives: 
+				<div id="lives-counter">
+					<img width="40" height ="40" class="heart-icon first" src="${heartImage}"></img>
+					<img width="40" height ="40" class="heart-icon second" src="${heartImage}"></img>
+					<img width="40" height ="40" class="heart-icon third" src="${heartImage}"></img>
+				</div>	
 			</div>
 		</div>`;
 
