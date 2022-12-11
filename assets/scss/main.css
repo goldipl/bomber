@@ -17,8 +17,6 @@
   position: absolute;
   margin: 0 auto;
   width: 47%;
-  bottom: 50%;
-  transform: translateY(50%);
   left: 26%;
   cursor: pointer;
   background-color: rgba(255, 255, 255, 0);
@@ -29,6 +27,8 @@
   border: 2px solid #FFFFFF;
   padding: 16px;
   transition: 0.6s;
+  bottom: 50%;
+  transform: translateY(50%);
 }
 .startButton:hover {
   background-color: #FFFFFF;
@@ -95,6 +95,32 @@
 }
 #gameContainer #lives-container #lives-counter .heart-icon.first {
   margin-left: 16px;
+}
+#gameContainer #exit-btn {
+  font-family: "Lato", sans-serif;
+  position: absolute;
+  margin: 0 auto;
+  width: 47%;
+  left: 26%;
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0);
+  font-weight: 700;
+  font-size: 16px;
+  color: #FFFFFF;
+  letter-spacing: 0.16em;
+  border: 2px solid #FFFFFF;
+  padding: 16px;
+  transition: 0.6s;
+  width: 180px;
+  display: flex;
+  justify-content: center;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 4px;
+}
+#gameContainer #exit-btn:hover {
+  background-color: #FFFFFF;
+  color: #FF0000;
 }
 
 canvas {
