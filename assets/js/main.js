@@ -16,12 +16,17 @@ startPage();
 
 const gamePage = () => {
 	app.innerHTML = `
-<div id="gameContainer">
-<canvas id="canvas">
-</canvas>
-</div>`;
+		<div id="gameContainer">
+			<canvas id="canvas"></canvas>
+			<div id="time-container">
+				Time: <div id="time-counter">00:00</div>
+			</div>
+			<div id="lives-container">
+				Lives: <div id="lives-counter"></div>	
+			</div>
+		</div>`;
 
-	const gameContainer = document.getElementById("gameContainer");
+	const timeCounter = document.getElementById("time-counter");
 	const canvas = document.getElementById("canvas");
 
 	let seconds = 0;
@@ -29,8 +34,8 @@ const gamePage = () => {
 		seconds++;
 		let mins = Math.floor(seconds / 60);
 		let secs = Math.floor(seconds % 60);
-		// time.innerHTML =
-		// 	mins.toString().padStart(2, "0") + ":" + secs.toString().padStart(2, "0");
+		timeCounter.innerHTML =
+		mins.toString().padStart(2, "0") + ":" + secs.toString().padStart(2, "0");
 	};
 
 	const showTime = () => {
