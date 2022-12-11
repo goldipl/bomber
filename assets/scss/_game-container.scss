@@ -11,6 +11,34 @@
 	overflow: hidden;
 	background-position: center;
 	background-size: contain;
+	#time-container { 
+		position: absolute;
+		display: inline-flex;
+		top: 0;
+		left: 8px;
+		font-size: 32px;
+		color: #FFFFFF;
+		#time-counter {
+			margin-left: 8px;
+			font-size: 32px;
+			color: #FFFFFF;
+		}
+	}
+	#lives-container { 
+		position: absolute;
+		display: inline-flex;
+		top: 0;
+		right: 8px;
+		font-size: 32px;
+		color: #FFFFFF;
+		#lives-counter .heart-icon {
+			font-size: 32px;
+			color: #FFFFFF;
+			&.first {
+				margin-left: 16px;
+			}
+		}
+	}
 }
 
 canvas {

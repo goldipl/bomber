@@ -1,3 +1,5 @@
+import heartImage from './../img/heart.png';
+
 const startPage = () => {
 	app.innerHTML = `
   <section class="homeContainer" id="homeContainer">
@@ -16,12 +18,22 @@ startPage();
 
 const gamePage = () => {
 	app.innerHTML = `
-<div id="gameContainer">
-<canvas id="canvas">
-</canvas>
-</div>`;
+		<div id="gameContainer">
+			<canvas id="canvas"></canvas>
+			<div id="time-container">
+				Time: <div id="time-counter">00:00</div>
+			</div>
+			<div id="lives-container">
+				Lives: 
+				<div id="lives-counter">
+					<img width="40" height ="40" class="heart-icon first" src="${heartImage}"></img>
+					<img width="40" height ="40" class="heart-icon second" src="${heartImage}"></img>
+					<img width="40" height ="40" class="heart-icon third" src="${heartImage}"></img>
+				</div>	
+			</div>
+		</div>`;
 
-	const gameContainer = document.getElementById("gameContainer");
+	const timeCounter = document.getElementById("time-counter");
 	const canvas = document.getElementById("canvas");
 
 	let seconds = 0;
@@ -29,8 +41,8 @@ const gamePage = () => {
 		seconds++;
 		let mins = Math.floor(seconds / 60);
 		let secs = Math.floor(seconds % 60);
-		// time.innerHTML =
-		// 	mins.toString().padStart(2, "0") + ":" + secs.toString().padStart(2, "0");
+		timeCounter.innerHTML =
+		mins.toString().padStart(2, "0") + ":" + secs.toString().padStart(2, "0");
 	};
 
 	const showTime = () => {

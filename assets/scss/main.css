@@ -68,6 +68,34 @@
   background-position: center;
   background-size: contain;
 }
+#gameContainer #time-container {
+  position: absolute;
+  display: inline-flex;
+  top: 0;
+  left: 8px;
+  font-size: 32px;
+  color: #FFFFFF;
+}
+#gameContainer #time-container #time-counter {
+  margin-left: 8px;
+  font-size: 32px;
+  color: #FFFFFF;
+}
+#gameContainer #lives-container {
+  position: absolute;
+  display: inline-flex;
+  top: 0;
+  right: 8px;
+  font-size: 32px;
+  color: #FFFFFF;
+}
+#gameContainer #lives-container #lives-counter .heart-icon {
+  font-size: 32px;
+  color: #FFFFFF;
+}
+#gameContainer #lives-container #lives-counter .heart-icon.first {
+  margin-left: 16px;
+}
 
 canvas {
   background-color: rgba(68, 68, 68, 0.6588235294);
