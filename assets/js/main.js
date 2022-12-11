@@ -21,7 +21,7 @@ const gamePage = () => {
 		<div id="gameContainer">
 			<canvas id="canvas"></canvas>
 			<div id="time-container">
-				Time: <div id="time-counter">00:00</div>
+				Time: <div id="time-counter">10:00</div>
 			</div>
 			<div id="lives-container">
 				Lives: 
@@ -41,9 +41,9 @@ const gamePage = () => {
 	const timeCounter = document.getElementById("time-counter");
 	const canvas = document.getElementById("canvas");
 
-	let seconds = 0;
+	let seconds;
 	const gameTimer = () => {
-		seconds++;
+		seconds--;
 		let mins = Math.floor(seconds / 60);
 		let secs = Math.floor(seconds % 60);
 		timeCounter.innerHTML =
@@ -51,7 +51,7 @@ const gamePage = () => {
 	};
 
 	const showTime = () => {
-		seconds = 0;
+		seconds = 600;
 		if (game.play) {
 			setInterval(gameTimer, 1000);
 		}
