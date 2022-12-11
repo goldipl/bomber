@@ -31,6 +31,11 @@ const gamePage = () => {
 					<img width="40" height ="40" class="heart-icon third" src="${heartImage}"></img>
 				</div>	
 			</div>
+			<a id="exit-btn-link-container" href="./index.html">
+				<div id="exit-btn">
+					Exit
+				</div>
+			</a>
 		</div>`;
 
 	const timeCounter = document.getElementById("time-counter");

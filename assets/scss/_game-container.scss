@@ -1,3 +1,4 @@
+@import 'mixins';
 #gameContainer {
 	position: absolute;
 	height: 100vh;
@@ -38,6 +39,15 @@
 				margin-left: 16px;
 			}
 		}
+	}
+	#exit-btn {
+		@include button;
+		width: 180px;
+		display: flex;
+		justify-content: center;
+		left: 50%;
+		transform: translateX(-50%);
+		bottom: 4px;
 	}
 }
 
