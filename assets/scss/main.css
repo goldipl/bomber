@@ -70,6 +70,7 @@
 }
 #gameContainer #time-container {
   position: absolute;
+  font-family: "Rubik Vinyl", cursive;
   display: inline-flex;
   top: 0;
   left: 8px;
@@ -83,6 +84,7 @@
 }
 #gameContainer #lives-container {
   position: absolute;
+  font-family: "Rubik Vinyl", cursive;
   display: inline-flex;
   top: 0;
   right: 8px;
