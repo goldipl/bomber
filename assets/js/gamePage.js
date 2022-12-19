@@ -15,11 +15,11 @@ const gamePage = () => {
 					<img width="40" height ="40" class="heart-icon third" src="${heartImage}"></img>
 				</div>	
 			</div>
-			<a id="exit-btn-link-container" href="./index.html">
+			<player id="exit-btn-link-container" href="./index.html">
 				<div id="exit-btn">
 					Exit
 				</div>
-			</a>
+			</player>
 		</div>`;
 
 	const timeCounter = document.getElementById("time-counter");
@@ -46,9 +46,9 @@ const gamePage = () => {
 	let windowHeight = body.offsetHeight;
 	let tile = width / 15;
 	const player1 = {
-		speed: 1,
-		width: tile,
-		height: tile,
+		speed: 3,
+		width: tile * 0.8,
+		height: tile * 0.8,
 		color: "blue",
 		score: 0,
 		lives: 0,
@@ -65,8 +65,8 @@ const gamePage = () => {
 		canvas.setAttribute("height", height);
 		canvas.setAttribute("width", width);
 		tile = width / 15;
-		player1.width = tile;
-		player1.height = tile;
+		player1.width = tile * 0.8;
+		player1.height = tile * 0.8;
 		player1.y = tile;
 		player1.x = tile;
 	};
@@ -132,12 +132,59 @@ const gamePage = () => {
 	};
 
 	//kolizja może się przyda
-	function col(a, b) {
+	function col(player, enemy) {
 		let boo =
-			a.x < b.x + b.width &&
-			a.x + a.width > b.x &&
-			a.y < b.y + b.height &&
-			a.y + a.height > b.y;
+			player.x < enemy.x + enemy.width &&
+			player.x + player.width > enemy.x &&
+			player.y < enemy.y + enemy.height &&
+			player.y + player.height > enemy.y;
+		if (boo) {
+			console.log("HIT");
+		}
+		return boo;
+	}
+
+	function colUp(player, enemy) {
+		let boo =
+			player.x < enemy.x + (enemy.width * 9) / 10 &&
+			player.x + (player.width * 9) / 10 > enemy.x &&
+			player.y < enemy.y + enemy.height / 8 &&
+			player.y + player.height > enemy.y;
+		if (boo) {
+			console.log("HIT");
+		}
+		return boo;
+	}
+
+	function colDown(player, enemy) {
+		let boo =
+			player.x < enemy.x + (enemy.width * 9) / 10 &&
+			player.x + (player.width * 9) / 10 > enemy.x &&
+			player.y < enemy.y + enemy.height &&
+			player.y + player.height / 8 > enemy.y;
+		if (boo) {
+			console.log("HIT");
+		}
+		return boo;
+	}
+
+	function colLeft(player, enemy) {
+		let boo =
+			player.x < enemy.x + enemy.width / 8 &&
+			player.x + player.width > enemy.x &&
+			player.y < enemy.y + (enemy.height * 9) / 10 &&
+			player.y + (player.height * 9) / 10 > enemy.y;
+		if (boo) {
+			console.log("HIT");
+		}
+		return boo;
+	}
+	function colRight(player, enemy) {
+		let boo =
+			player.x < enemy.x + enemy.width &&
+			player.x + player.width / 8 > enemy.x &&
+			player.y < enemy.y + (enemy.height * 9) / 10 &&
+			player.y + (player.height * 9) / 10 > enemy.y;
 		if (boo) {
 			console.log("HIT");
 		}
@@ -183,36 +230,50 @@ const gamePage = () => {
 		// if (time.textContent.includes("00:00")) {
 		// 	gameOver();
 		// }
+		// if (
+		// 	col(player1, innerWalls[0]) == false &&
+		// 	col(player1, innerWalls[1]) == false &&
+		// 	col(player1, innerWalls[2]) == false &&
+		// 	col(player1, innerWalls[3]) == false &&
+		// 	col(player1, innerWalls[4]) == false &&
+		// 	col(player1, innerWalls[5]) == false
+		// ) {
 		if (
-			col(player1, innerWalls[0]) == false &&
-			col(player1, innerWalls[1]) == false &&
-			col(player1, innerWalls[2]) == false &&
-			col(player1, innerWalls[3]) == false &&
-			col(player1, innerWalls[4]) == false &&
-			col(player1, innerWalls[5]) == false
+			keyz.ArrowLeft &&
+			player1.x > tile &&
+			colRight(player1, innerWalls[0]) == false &&
+			colRight(player1, innerWalls[1]) == false
 		) {
-			for (let i = 1; i < 6; i++) {
-				if (keyz.ArrowLeft && player1.x > tile) {
-					// if (player1.y + tile < 2 * tile) {
-					player1.x -= player1.speed;
-					// }
-				}
-				if (keyz.ArrowLeft && player1.x > tile) {
-					// if (player1.y > 3 * tile) {
-					player1.x -= player1.speed;
-					// }
-				}
-				if (keyz.ArrowRight && player1.x < tile * 13) {
-					player1.x += player1.speed;
-				}
-				if (keyz.ArrowUp && player1.y > tile) {
-					player1.y -= player1.speed;
-				}
-				if (keyz.ArrowDown && player1.y < tile * 13) {
-					player1.y += player1.speed;
-				}
-			}
+			// if (player1.y + tile < 2 * tile) {
+			player1.x -= player1.speed;
+			// }
 		}
+		if (
+			keyz.ArrowRight &&
+			player1.x < tile * 13 &&
+			colLeft(player1, innerWalls[0]) == false &&
+			colLeft(player1, innerWalls[1]) == false
+		) {
+			player1.x += player1.speed;
+		}
+		if (
+			keyz.ArrowUp &&
+			player1.y > tile &&
+			colDown(player1, innerWalls[0]) == false &&
+			colDown(player1, innerWalls[1]) == false
+		) {
+			player1.y -= player1.speed;
+		}
+		if (
+			keyz.ArrowDown &&
+			player1.y < tile * 13 &&
+			colUp(player1, innerWalls[0]) == false &&
+			colUp(player1, innerWalls[1]) == false
+		) {
+			player1.y += player1.speed;
+		}
+		colDown(player1, innerWalls[0]);
+		// }
 		ctx.drawImage(
 			player1Image,
 			player1.x,
