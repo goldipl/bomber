@@ -1,5 +1,3 @@
-import heartImage from "./../img/heart.png";
-
 const gamePage = () => {
 	app.innerHTML = `
 	<div id="gameContainer">
@@ -10,9 +8,9 @@ const gamePage = () => {
 			<div id="lives-container">
 				Lives: 
 				<div id="lives-counter">
-					<img class="heart-icon first" src="${heartImage}"></img>
-					<img class="heart-icon second" src="${heartImage}"></img>
-					<img class="heart-icon third" src="${heartImage}"></img>
+					<span>♥</span>
+					<span>♥</span>
+					<span>♥</span>
 				</div>	
 			</div>
 			<player id="exit-btn-link-container" href="./index.html">
