@@ -2,7 +2,7 @@ import heartImage from "./../img/heart.png";
 
 const gamePage = () => {
 	app.innerHTML = `
-		<div id="gameContainer">
+	<div id="gameContainer">
 			<canvas id="canvas"></canvas>
 			<div id="time-container">
 				Time: <div id="time-counter">10:00</div>
@@ -10,9 +10,9 @@ const gamePage = () => {
 			<div id="lives-container">
 				Lives: 
 				<div id="lives-counter">
-					<img width="40" height ="40" class="heart-icon first" src="${heartImage}"></img>
-					<img width="40" height ="40" class="heart-icon second" src="${heartImage}"></img>
-					<img width="40" height ="40" class="heart-icon third" src="${heartImage}"></img>
+					<img class="heart-icon first" src="${heartImage}"></img>
+					<img class="heart-icon second" src="${heartImage}"></img>
+					<img class="heart-icon third" src="${heartImage}"></img>
 				</div>	
 			</div>
 			<player id="exit-btn-link-container" href="./index.html">
@@ -20,7 +20,7 @@ const gamePage = () => {
 					Exit
 				</div>
 			</player>
-		</div>`;
+	</div>`;
 
 	const timeCounter = document.getElementById("time-counter");
 	const canvas = document.getElementById("canvas");
@@ -45,6 +45,10 @@ const gamePage = () => {
 	let windowWidth = body.offsetWidth;
 	let windowHeight = body.offsetHeight;
 	let tile = width / 15;
+	const grid = [];
+
+	// Initialize the grid with information about walls
+
 	const player1 = {
 		speed: 3,
 		width: tile * 0.8,
@@ -52,7 +56,7 @@ const gamePage = () => {
 		color: "blue",
 		score: 0,
 		lives: 0,
-		image: "./assets/img/bomberman.png",
+		image: "/bomberman.png",
 		x: tile,
 		y: tile,
 	};
@@ -73,44 +77,25 @@ const gamePage = () => {
 	CanvasResize();
 	window.addEventListener("resize", CanvasResize);
 
-	const innerWalls = [
-		{
-			x: 2 * tile,
-			y: 2 * tile,
-			width: tile,
-			height: tile,
-		},
-		{
-			x: 4 * tile,
-			y: 2 * tile,
-			width: tile,
-			height: tile,
-		},
-		{
-			x: 6 * tile,
-			y: 2 * tile,
-			width: tile,
-			height: tile,
-		},
-		{
-			x: 8 * tile,
-			y: 2 * tile,
-			width: tile,
-			height: tile,
-		},
-		{
-			x: 10 * tile,
-			y: 2 * tile,
-			width: tile,
-			height: tile,
-		},
-		{
-			x: 12 * tile,
-			y: 2 * tile,
-			width: tile,
-			height: tile,
-		},
-	];
+	//inner Walls grid
+	const innerWalls = [];
+
+	const wallWidth = tile;
+	const wallHeight = tile;
+
+	for (let row = 1; row < 7; row++) {
+		for (let col = 1; col < 7; col++) {
+			const wallX = 2 * col * tile;
+			const wallY = 2 * row * tile;
+
+			innerWalls.push({
+				x: wallX,
+				y: wallY,
+				width: wallWidth,
+				height: wallHeight,
+			});
+		}
+	}
 
 	const player1Image = new Image();
 	player1Image.src = player1.image;
@@ -118,7 +103,7 @@ const gamePage = () => {
 	const wall = {
 		width: tile,
 		height: tile,
-		image: "./assets/img/wall.png",
+		image: "/wall.png",
 	};
 
 	const wallImage = new Image();
@@ -132,64 +117,64 @@ const gamePage = () => {
 	};
 
 	//kolizja może się przyda
-	function col(player, enemy) {
-		let boo =
-			player.x < enemy.x + enemy.width &&
-			player.x + player.width > enemy.x &&
-			player.y < enemy.y + enemy.height &&
-			player.y + player.height > enemy.y;
-		if (boo) {
-			console.log("HIT");
-		}
-		return boo;
-	}
+	// function col(player, enemy) {
+	// 	let boo =
+	// 		player.x < enemy.x + enemy.width &&
+	// 		player.x + player.width > enemy.x &&
+	// 		player.y < enemy.y + enemy.height &&
+	// 		player.y + player.height > enemy.y;
+	// 	if (boo) {
+	// 		console.log("HIT");
+	// 	}
+	// 	return boo;
+	// }
 
-	function colUp(player, enemy) {
-		let boo =
-			player.x < enemy.x + (enemy.width * 9) / 10 &&
-			player.x + (player.width * 9) / 10 > enemy.x &&
-			player.y < enemy.y + enemy.height / 8 &&
-			player.y + player.height > enemy.y;
-		if (boo) {
-			console.log("HIT");
-		}
-		return boo;
-	}
+	// function colUp(player, enemy) {
+	// 	let boo =
+	// 		player.x < enemy.x + (enemy.width * 9) / 10 &&
+	// 		player.x + (player.width * 9) / 10 > enemy.x &&
+	// 		player.y < enemy.y + enemy.height / 8 &&
+	// 		player.y + player.height > enemy.y;
+	// 	if (boo) {
+	// 		console.log("HIT");
+	// 	}
+	// 	return boo;
+	// }
 
-	function colDown(player, enemy) {
-		let boo =
-			player.x < enemy.x + (enemy.width * 9) / 10 &&
-			player.x + (player.width * 9) / 10 > enemy.x &&
-			player.y < enemy.y + enemy.height &&
-			player.y + player.height / 8 > enemy.y;
-		if (boo) {
-			console.log("HIT");
-		}
-		return boo;
-	}
+	// function colDown(player, enemy) {
+	// 	let boo =
+	// 		player.x < enemy.x + (enemy.width * 9) / 10 &&
+	// 		player.x + (player.width * 9) / 10 > enemy.x &&
+	// 		player.y < enemy.y + enemy.height &&
+	// 		player.y + player.height / 8 > enemy.y;
+	// 	if (boo) {
+	// 		console.log("HIT");
+	// 	}
+	// 	return boo;
+	// }
 
-	function colLeft(player, enemy) {
-		let boo =
-			player.x < enemy.x + enemy.width / 8 &&
-			player.x + player.width > enemy.x &&
-			player.y < enemy.y + (enemy.height * 9) / 10 &&
-			player.y + (player.height * 9) / 10 > enemy.y;
-		if (boo) {
-			console.log("HIT");
-		}
-		return boo;
-	}
-	function colRight(player, enemy) {
-		let boo =
-			player.x < enemy.x + enemy.width &&
-			player.x + player.width / 8 > enemy.x &&
-			player.y < enemy.y + (enemy.height * 9) / 10 &&
-			player.y + (player.height * 9) / 10 > enemy.y;
-		if (boo) {
-			console.log("HIT");
-		}
-		return boo;
-	}
+	// function colLeft(player, enemy) {
+	// 	let boo =
+	// 		player.x < enemy.x + enemy.width / 8 &&
+	// 		player.x + player.width > enemy.x &&
+	// 		player.y < enemy.y + (enemy.height * 9) / 10 &&
+	// 		player.y + (player.height * 9) / 10 > enemy.y;
+	// 	if (boo) {
+	// 		console.log("HIT");
+	// 	}
+	// 	return boo;
+	// }
+	// function colRight(player, enemy) {
+	// 	let boo =
+	// 		player.x < enemy.x + enemy.width &&
+	// 		player.x + player.width / 8 > enemy.x &&
+	// 		player.y < enemy.y + (enemy.height * 9) / 10 &&
+	// 		player.y + (player.height * 9) / 10 > enemy.y;
+	// 	if (boo) {
+	// 		console.log("HIT");
+	// 	}
+	// 	return boo;
+	// }
 
 	function gameOver() {
 		clearInterval(gameTimer);
@@ -207,73 +192,85 @@ const gamePage = () => {
 		player1.score = 0;
 		player1.lives = 3;
 	}
-	const keyz = {
-		ArrowLeft: false,
-		ArrowRight: false,
-		ArrowUp: false,
-		ArrowDown: false,
-	};
+	// OLD PLAYER STEERING
+	// const keyz = {
+	// 	ArrowLeft: false,
+	// 	ArrowRight: false,
+	// 	ArrowUp: false,
+	// 	ArrowDown: false,
+	// };
+	// document.addEventListener("keydown", (e) => {
+	// 	if (e.code in keyz) {
+	// 		keyz[e.code] = true;
+	// 	}
+	// });
+	// document.addEventListener("keyup", (e) => {
+	// 	if (e.code in keyz) {
+	// 		keyz[e.code] = false;
+	// 	}
+	// });
+
+	//initialize grid of walls
+	for (let i = 0; i < 15; i++) {
+		grid[i] = [];
+		for (let j = 0; j < 15; j++) {
+			if (i === 0 || i === 14 || j === 0 || j === 14) {
+				grid[i][j] = true;
+			} else {
+				grid[i][j] = false;
+			}
+		}
+	}
+
+	//add innerwalls to grid
+	for (const wall of innerWalls) {
+		const wallX = Math.floor(wall.x / tile);
+		const wallY = Math.floor(wall.y / tile);
+		grid[wallX][wallY] = true;
+	}
+
+	//player movement
+	function movePlayer(direction) {
+		const playerX = player1.x / tile;
+		const playerY = player1.y / tile;
+		let newX = playerX;
+		let newY = playerY;
+		if (direction === "left") {
+			newX--;
+		} else if (direction === "right") {
+			newX++;
+		} else if (direction === "up") {
+			newY--;
+		} else if (direction === "down") {
+			newY++;
+		}
+
+		//check player and grid collisions
+		if (!grid[Math.floor(newX)][Math.floor(newY)]) {
+			player1.x = newX * tile;
+			player1.y = newY * tile;
+		}
+	}
+
+	//key listener
 	document.addEventListener("keydown", (e) => {
-		if (e.code in keyz) {
-			keyz[e.code] = true;
+		if (e.code === "ArrowLeft") {
+			movePlayer("left");
+		} else if (e.code === "ArrowRight") {
+			movePlayer("right");
+		} else if (e.code === "ArrowUp") {
+			movePlayer("up");
+		} else if (e.code === "ArrowDown") {
+			movePlayer("down");
 		}
 	});
-	document.addEventListener("keyup", (e) => {
-		if (e.code in keyz) {
-			keyz[e.code] = false;
-		}
-	});
-	//PLAYER STEERING
 
 	function draw() {
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		// if (time.textContent.includes("00:00")) {
 		// 	gameOver();
 		// }
-		// if (
-		// 	col(player1, innerWalls[0]) == false &&
-		// 	col(player1, innerWalls[1]) == false &&
-		// 	col(player1, innerWalls[2]) == false &&
-		// 	col(player1, innerWalls[3]) == false &&
-		// 	col(player1, innerWalls[4]) == false &&
-		// 	col(player1, innerWalls[5]) == false
-		// ) {
-		if (
-			keyz.ArrowLeft &&
-			player1.x > tile &&
-			colRight(player1, innerWalls[0]) == false &&
-			colRight(player1, innerWalls[1]) == false
-		) {
-			// if (player1.y + tile < 2 * tile) {
-			player1.x -= player1.speed;
-			// }
-		}
-		if (
-			keyz.ArrowRight &&
-			player1.x < tile * 13 &&
-			colLeft(player1, innerWalls[0]) == false &&
-			colLeft(player1, innerWalls[1]) == false
-		) {
-			player1.x += player1.speed;
-		}
-		if (
-			keyz.ArrowUp &&
-			player1.y > tile &&
-			colDown(player1, innerWalls[0]) == false &&
-			colDown(player1, innerWalls[1]) == false
-		) {
-			player1.y -= player1.speed;
-		}
-		if (
-			keyz.ArrowDown &&
-			player1.y < tile * 13 &&
-			colUp(player1, innerWalls[0]) == false &&
-			colUp(player1, innerWalls[1]) == false
-		) {
-			player1.y += player1.speed;
-		}
-		colDown(player1, innerWalls[0]);
-		// }
+
 		ctx.drawImage(
 			player1Image,
 			player1.x,
@@ -282,7 +279,7 @@ const gamePage = () => {
 			player1.height
 		);
 		for (let i = 0; i < 15; i++) {
-			//externa lwalls
+			//external walls
 			ctx.drawImage(wallImage, 0, tile * i, tile, tile);
 			ctx.drawImage(wallImage, tile * i, 0, tile, tile);
 			ctx.drawImage(wallImage, tile * i, canvas.height - tile, tile, tile);
