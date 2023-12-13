@@ -1,4 +1,4 @@
-import gamePage from "./gamePage";
+import gamePage from "./gamePage.js";
 
 const startPage = () => {
     app.innerHTML = `
